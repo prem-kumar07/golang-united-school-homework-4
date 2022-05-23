@@ -26,13 +26,6 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
-type myError struct {
-	err error
-}
-
-func (e myError) Error() string {
-	return fmt.Errorf(err)
-}
 
 func StringSum(input string) (output string, err error) {
 
