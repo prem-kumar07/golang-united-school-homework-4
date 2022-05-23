@@ -28,11 +28,11 @@ var (
 
 func StringSum(input string) (output string, err error) {
 
-	input = strings.TrimSpace(input)
+	input = strings.ReplaceAll(input, " ", "")
 	if len(input) == 0 {
-		return "", fmt.Errorf("%v", errorEmptyInput)
+		return " ", fmt.Errorf("%v", errorEmptyInput)
 	}
-	re := regexp.MustCompile(`^(?P<a>[-,+]?\d+)(?P<b>[-,+]\d+)$`)
+	re := regexp.MustCompile(`^(?P<a>[-,+]?\s*\w+)\s*(?P<b>[-,+]\s*\w+)$`)
 	found := re.MatchString(input)
 	sum := 0
 	if found {
@@ -46,12 +46,14 @@ func StringSum(input string) (output string, err error) {
 		if err != nil {
 			// handle error
 			fmt.Println(err)
+			return " ", fmt.Errorf("%v", err)
 
 		}
 		i2, err := strconv.Atoi(match[bI])
 		if err != nil {
 			// handle error
 			fmt.Println(err)
+			return " ", fmt.Errorf("%v", err)
 
 		}
 		sum = i1 + i2
@@ -59,7 +61,7 @@ func StringSum(input string) (output string, err error) {
 
 		fmt.Printf("%s does not match\n", input)
 
-		return "", fmt.Errorf("%v", errorNotTwoOperands)
+		return " ", fmt.Errorf("%v", errorNotTwoOperands)
 	}
 	return strconv.Itoa(sum), nil
 }
